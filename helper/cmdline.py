@@ -62,7 +62,7 @@ def parseArgs(args):
 
         # If it is already a file, append it
         if os.path.isfile(arg):
-            if arg[-4:] == ".pdb":
+            if arg[-4:] in [".pdb",".ent"]:
                 file_list.append(arg)
             else:
                 g = open(arg,'r')
