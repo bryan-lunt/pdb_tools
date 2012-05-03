@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 29
+/svn/!svn/ver/53/trunk/helper
+END
+cmdline.py
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/53/trunk/helper/cmdline.py
+END
+geometry.py
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/19/trunk/helper/geometry.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/19/trunk/helper/__init__.py
+END
+container.py
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/19/trunk/helper/container.py
+END
