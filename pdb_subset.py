@@ -110,7 +110,7 @@ def main():
         pdb, chain, residues = pdbSubset(pdb,options.chain,options.residues)
       
         # Write to file 
-        out_file = "%s_%s_%i-%i.pdb" % (pdb_id,chain,residues[0],residues[1])
+        out_file = "%s_%s.pdb" % (pdb_id,chain)
         g = open(out_file,'w')
         g.writelines(pdb)
         g.close()
