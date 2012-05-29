@@ -16,6 +16,7 @@ __date__ = "080123"
 
 import os
 from pdb_data.common import *
+from helper import other
 
 class PdbSeqError(Exception):
     """
@@ -52,15 +53,11 @@ def pdbSeq(pdb,use_atoms=False):
 
         seq_type = "ATOM  "
 
-	#We want to throw out hetatms, but not if they represent modified residues, the only thing to do is keep a list of MODRES entries.
-        modreslist = [l for l in pdb if l[0:6] == "MODRES"]
-        modresdict = dict()
-        for modres in modreslist:
-            splitup = modres.split()
-            modresdict[(splitup[3],splitup[4])] = splitup
+	atoms = other.getPolymerAtoms(pdb)
+	atoms = other.removeRotamers(atoms)
 
+	atoms = [l for l in atoms if l[13:15] == "CA"]
 
-        atoms = [l for l in pdb if (l[0:4] == "ATOM" and l[13:16] == "CA ") or (l[0:6] == "HETATM" and modresdict.has_key((l[21], l[22:26].strip())) and l[12:16].strip() == "CA")]
         chain_dict = dict([(l[21],[]) for l in atoms])
         for c in chain_dict.keys():
             chain_dict[c] = [l[17:20] for l in atoms if l[21] == c]

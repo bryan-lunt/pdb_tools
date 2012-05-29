@@ -15,7 +15,7 @@ __author__ = "Michael J. Harms"
 __date__ = ""
 
 import os, sys
-from helper import geometry
+from helper import geometry,other
 
 def pdbContact(pdb,all=False):
     """
@@ -23,18 +23,13 @@ def pdbContact(pdb,all=False):
     look at CA atoms
     """
 
-    #We want to throw out hetatms, but not if they represent modified residues, the only thing to do is keep a list of MODRES entries.
-    modreslist = [l for l in pdb if l[0:6] == "MODRES"]
-    modresdict = dict()
-    for modres in modreslist:
-        splitup = modres.split()
-        modresdict[(splitup[3],splitup[4])] = splitup
+    pdb = other.getPolymerAtoms(pdb)
+    pdb = other.removeRotamers(pdb)
 
     # Remove non-CA atoms
     if not all:
-        pdb = [l for l in pdb if (l[0:4] == "ATOM" and l[13:16] == "CA ") or (l[0:6] == "HETATM" and modresdict.has_key((l[21], l[22:26].strip())) and l[12:16].strip() == "CA")]
-    else:
-        pdb = [l for l in pdb if l[0:4] == "ATOM" or (l[0:6] == "HETATM" and modresdict.has_key((l[21], l[22:26].strip())))]
+        pdb = [l for l in pdb if l[13:15] == "CA"]
+
 
     coord = [[float(l[30+8*i:38+8*i]) for i in range(3)] for l in pdb]
 
