@@ -54,9 +54,11 @@ def pdbSeq(pdb,use_atoms=False):
         seq_type = "ATOM  "
 
 	atoms = other.getPolymerAtoms(pdb)
-	atoms = other.removeRotamers(atoms)
+	#atoms = other.removeRotamers(atoms)
 
 	atoms = [l for l in atoms if l[13:15] == "CA"]
+
+	atoms = other.removeRotamers(atoms)#this second call removes alternate residues, which may not be interleaved. Actually, the first call could be removed.
 
         chain_dict = dict([(l[21],[]) for l in atoms])
         for c in chain_dict.keys():
